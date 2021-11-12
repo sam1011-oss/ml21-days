@@ -1,0 +1,80 @@
+
+作業: 進一步了解不同的特徵值所呈現的關係圖
+
+作業(1)
+
+顯示的四個變量中, 把hue 套用 sex
+
+x="total_bill", y="tip", hue="sex", style="time"
+
+作業(2)
+
+使用新的數據集fmri, 再跑一次
+
+溫馨叮嚀: 不熟悉使用沒關係, 提出來, 有專家陪跑
+
+Seaborn圖樣式
+有五種預設seaborn主題：darkgrid，whitegrid，dark，white，和ticks。它們各自適合不同的應用和個人喜好。默認主題是darkgrid
+
+In [1]:
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+作業(1)
+
+顯示的四個變量中, 把hue 套用 sex
+
+x="total_bill", y="tip", hue="sex", style="time"
+
+In [2]:
+# 載入數據集
+tips = sns.load_dataset("tips")
+fmri = sns.load_dataset("fmri")
+In [3]:
+#觀看資料集有哪些變數
+tips.head()
+Out[3]:
+total_bill	tip	sex	smoker	day	time	size
+0	16.99	1.01	Female	No	Sun	Dinner	2
+1	10.34	1.66	Male	No	Sun	Dinner	3
+2	21.01	3.50	Male	No	Sun	Dinner	3
+3	23.68	3.31	Male	No	Sun	Dinner	2
+4	24.59	3.61	Female	No	Sun	Dinner	4
+In [11]:
+# 通過獨立地改變每個點的色調和样式，也可以表示四個變量
+
+#顯示的四個變量中, 把hue 套用 sex
+#x="total_bill", y="tip", hue="sex", style="time"
+
+sns.relplot(x = "total_bill", y = "tip", hue = "sex", style = "time", data = tips)
+# #hue： 在同一維度上，用顏色區分不同數據 
+# style： 在同一維度上， 用不同表現形式區分， 如 點線、虛線、打叉等
+Out[11]:
+<seaborn.axisgrid.FacetGrid at 0x2301c770688>
+
+In [5]:
+#改用新的資料集
+#觀看資料集有哪些變數
+fmri = sns.load_dataset("fmri")
+fmri.head()
+Out[5]:
+subject	timepoint	event	region	signal
+0	s13	18	stim	parietal	-0.017552
+1	s5	14	stim	parietal	-0.080883
+2	s12	18	stim	parietal	-0.081033
+3	s11	18	stim	parietal	-0.046134
+4	s10	18	stim	parietal	-0.037970
+In [8]:
+#使用新的數據集fmri, 再跑一次
+#選用特徵值 x="timepoint", y="signal", hue="event", style="region"
+sns.relplot(x = "timepoint", y = "signal", hue = "event",style = "region", data = fmri)
+Out[8]:
+<seaborn.axisgrid.FacetGrid at 0x2301c785808>
+
+In [10]:
+#使用新的數據集fmri, 再跑一次 sns.regplot
+# x="timepoint", y="signal"
+sns.regplot(x = "timepoint", y = "signal", data = fmri)
+Out[10]:
+<matplotlib.axes._subplots.AxesSubplot at 0x2301c7c5388>
